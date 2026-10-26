@@ -1,3 +1,4 @@
+// Loads bundled Harmony and MonoMod dependencies.
 using System;
 using System.IO;
 using System.Reflection;
