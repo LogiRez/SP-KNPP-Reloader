@@ -1,3 +1,4 @@
+// Connects to CarX and loads the tool DLL.
 using System;
 using System.IO;
 using System.Text;
