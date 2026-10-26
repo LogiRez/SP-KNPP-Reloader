@@ -1,11 +1,14 @@
 # SP-KNPP Reloader
 
-A standalone tool for refreshing Kino `.knpp` car-part packs in CarX Drift Racing Online without returning to the garage. After reloading, it rebuilds your current car to reapply its selected custom parts.
+A standalone tool for reloading Kino `.knpp` car-part packs in CarX Drift Racing Online without returning to the garage. It requests a pack reread, confirms the registry refreshed, then rebuilds your current car to reapply its selected custom parts.
+
+RCLI is not required.
 
 ## Requirements
 
-- Windows x64 and CarX Drift Racing Online through Steam.
-- Kino installed and loaded. This release requires the inspected Kino **3.39.1** build; other builds are rejected.
+- Windows x64.
+- CarX Drift Racing Online through Steam.
+- Kino installed and loaded. This release requires the supported **3.39.1** build; other builds are rejected.
 
 ## Setup
 
@@ -19,16 +22,25 @@ Close CarX and the launcher before replacing files when updating.
 
 ## Reloading packs
 
-1. Finish exporting or copying your `.knpp` files into:
+1. Finish exporting or copying your updated `.knpp` files into:
 
    ```text
    CarX Drift Racing Online/kino/mods/KN_Base/car_parts/
    ```
 
-2. Leave **Force reread existing packs (same filename)** enabled when replacing an existing pack.
-3. Click **Reload car-part packs** and wait for the refresh and car rebuild to finish.
+2. Overwrite the existing pack, keeping its pack and part IDs when updating an equipped part.
+3. Click **Reload car-part packs**.
+4. Wait for the pack refresh and car rebuild to finish.
 
-The tool reapplies the car’s selected custom parts. Newly added parts must be selected through Kino first; the tool does not choose a new body kit automatically.
+Reload requests a disk reread even when no file changes are detected. There is no separate full-reread option.
+
+New parts must be selected through Kino first. The tool does not automatically choose a new body kit.
+
+### Missing packs
+
+Reloading is blocked if a previously loaded pack file is missing, to help prevent losing equipped-part selections.
+
+Restore missing files before retrying. If an earlier reload already cleared your selections, re-equip the parts or load a saved Kino preset once.
 
 ## Controls
 
@@ -46,18 +58,42 @@ Wait for reloading to finish before switching cars, unloading or exiting. F9 als
 - Reloads are local. Other players need the updated pack files installed too.
 - Do not run an RCLI pack reload at the same time.
 - Repeated reloads can retain old assets in memory. Restart CarX after a long editing session.
-- Build and automated checks pass. The standalone workflow, game modes and multiplayer results still need in-game verification.
+- Reports include timings for pack refresh, car rebuild and the total operation.
+- Build and targeted automated checks pass. Updated model loading, game-mode compatibility and multiplayer appearance still need in-game verification.
 
 ## Troubleshooting
 
 - **Missing DLL:** Keep `SP-KNPP.Mod.dll` beside the launcher.
 - **Kino or car not ready:** Wait for both to finish loading in a driving session.
-- **Unsupported Kino build:** Use the inspected 3.39.1 build or a matching tool update.
-- **Missing or duplicate packs:** Check Kino’s errors and confirm the files finished copying.
-- **Reload error:** Check the report below. Include it, your Kino version and game mode when reporting an issue.
+- **Unsupported Kino build:** Use the supported 3.39.1 build or a matching tool update.
+- **Missing packs:** Restore previously loaded files before retrying.
+- **Missing or duplicate pack entries:** Check Kino’s errors and confirm the files finished copying.
+- **Parts do not return after restoring a file:** Re-equip them or load a saved Kino preset if their selections were previously cleared.
+- **Reload error:** Include the report below, your Kino version and game mode when reporting an issue.
+
+Report location:
+
+```text
+CarX Drift Racing Online/UserData/SP-KNPP Reloader/sp-knpp-reload.txt
+```
+
+## Source files
+
+| File | Purpose |
+| --- | --- |
+| AttachmentLobby.cs | Reads multiplayer room information. |
+| BundledHarmony.cs | Loads bundled patching dependencies. |
+| CarRebuild.cs | Allows the current car model to be recreated during reload. |
+| Entry.cs | Loads and unloads the tool inside CarX. |
+| Injector.cs | Connects the launcher to CarX and loads the mod DLL. |
+| LauncherUI.cs | Provides the desktop launcher interface. |
+| PackReload.cs | Reloads packs, checks missing files, rebuilds the car and records timings. |
+| RcliSettings.cs | Handles local settings, logs and launcher status files. |
+| Tool.cs | Provides the in-game panel, hotkeys and input handling. |
+| build.ps1 | Builds the launcher and mod DLL using supplied references and dependencies. |
 
 ## Credits
 
 Created by rez. Unofficial tool for CarX Drift Racing Online and Kino.
 
-Includes HarmonyX, Mono.Cecil and MonoMod components. 
+Includes HarmonyX, Mono.Cecil and MonoMod components. Their license notices are included in `Licenses/`.
