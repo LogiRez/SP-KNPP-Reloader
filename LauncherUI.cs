@@ -1,3 +1,4 @@
+// Provides the desktop launcher interface.
 using System;using System.Diagnostics;using System.Drawing;using System.IO;using System.Threading.Tasks;using System.Windows.Forms;
 static class Program {
  [STAThread]static void Main(string[] args){if(args.Length>0&&args[0]=="--self-test"){Injector.SelfTest();return;}Application.EnableVisualStyles();Application.Run(new ToolForm());}
