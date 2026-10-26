@@ -1,3 +1,4 @@
+// Provides the in-game panel, hotkeys and input handling.
 using System;using System.IO;using System.Reflection;using UnityEngine;
 namespace SpKnpp {
  public sealed partial class Exporter:MonoBehaviour {
