@@ -1,4 +1,4 @@
-// Reads multiplayer room IDs and checks whether a room is joined.
+// Reads multiplayer room IDs and checks whether a room is joined
 using System;
 namespace SpKnpp {
  internal static class AttachmentLobby {
