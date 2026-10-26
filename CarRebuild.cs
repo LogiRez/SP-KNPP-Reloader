@@ -1,3 +1,4 @@
+// Allows the current car model to be recreated during a pack reload.
 using System;using System.Collections.Generic;using System.Reflection;using System.Reflection.Emit;namespace SpKnpp {public sealed partial class Exporter {  public static IEnumerable<T> SyncSameModelCreateTranspiler<T>(IEnumerable<T> instructions,MethodBase __originalMethod) {
    var code=new List<T>(instructions);
    Type instruction=typeof(T),machine=__originalMethod.DeclaringType;
