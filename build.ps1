@@ -1,3 +1,4 @@
+# Builds the launcher and mod DLL.
 param([string]$ReferenceDirectory,[string]$HarmonyDirectory)
 $ErrorActionPreference='Stop'
 $package=Split-Path -Parent $PSScriptRoot
