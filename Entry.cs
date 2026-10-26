@@ -1,3 +1,4 @@
+// Loads and unloads the tool inside CarX.
 using System;
 using System.IO;
 using System.Threading;
