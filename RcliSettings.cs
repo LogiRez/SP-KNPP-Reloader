@@ -1,3 +1,4 @@
+// Manages local settings, logs and launcher status files.
 using System;
 using System.IO;
 using System.Text;
